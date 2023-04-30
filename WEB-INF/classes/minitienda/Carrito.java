@@ -1,3 +1,5 @@
+package minitienda;
+
 import java.io.*;
 import java.util.*;
 import javax.servlet.*;
@@ -7,6 +9,7 @@ import javax.xml.crypto.dsig.keyinfo.RetrievalMethod;
 public class Carrito extends HttpServlet {
 
     private ArrayList<Articulo> carrito = new ArrayList<>(); // lista de artículos en el carrito
+
 
     private float returnPrice(String descripcionCD) {
         // Recuperamos informacion del precio del CD
@@ -28,14 +31,14 @@ public class Carrito extends HttpServlet {
 
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-        response.setContentType("text/html;charset=UTF-8");
-        PrintWriter out = response.getWriter();
-
+        
         // obtener los parámetros de la solicitud
         float precio = returnPrice(request.getParameter("articuloSeleccionado"));
         String nombre = request.getParameter("articuloSeleccionado");
         String cantidadStr = request.getParameter("cantidad");
         Integer cantidad = Integer.parseInt(cantidadStr);
+
+        CarritoBean carritoBean = new CarritoBean();
 
         // si se recibieron valores válidos de nombre y precio, agregar el artículo al
         // carrito
@@ -49,58 +52,14 @@ public class Carrito extends HttpServlet {
         for (Articulo a : carrito) {
             precioTotal += a.getCantidad()*a.getPrecio();
         }
+    
+        carritoBean.setPrecioTotal(precioTotal);
+        carritoBean.setCarrito(carrito);
 
-        // generar la respuesta HTML
-        out.println("<!DOCTYPE html>\n" +
-                "<html>\n" +
-                "<head>\n" +
-                "<title>Carrito de Compra</title>\n" +
-                "</head>\n" +
-                "<body>\n" +
-                "<h1>Carrito de Compra</h1>\n" +
-                "<table>\n" +
-                "<tr>\n" +
-                "<th>Articulo</th>\n" +
-                "<th>Cantidad</th>\n" +
-                "<th>Precio</th>\n" +
-                "</tr>\n");
-
-        // mostrar los artículos del carrito
-        for (Articulo a : carrito) {
-            out.println("<tr>\n" +
-                    "<td>" + a.getNombre() + "</td>\n" +
-                    "<td>" + a.getCantidad() + "</td>\n" +
-                    "<td>" + String.format("%.2f", a.getPrecio()) + "</td>\n" +
-                    "</tr>\n");
-        }
-
-        out.println("</table>");
-        out.println("<div>\n" +
-                    "<h2>Precio total:" + String.format("%.2f", precioTotal) + "</h2>\n");
-    }
-
-    private class Articulo {
-
-        private String nombre;
-        private float precio;
-        private int cantidad;
-
-        public Articulo(String nombre, float precio, int cantidad) {
-            this.nombre = nombre;
-            this.precio = precio;
-            this.cantidad = cantidad;
-        }
-
-        public String getNombre() {
-            return nombre;
-        }
-
-        public double getPrecio() {
-            return precio;
-        }
-
-        public int getCantidad() {
-            return cantidad;
-        }
+        request.setAttribute("carritoBean", carritoBean);
+    
+        // Obtener el objeto RequestDispatcher y enviar la solicitud al JSP
+        RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/carrito.jsp");
+        dispatcher.forward(request, response);
     }
 }
