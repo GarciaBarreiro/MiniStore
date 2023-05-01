@@ -1,7 +1,7 @@
 <web-app>
     <servlet>
         <servlet-name>Formulario</servlet-name>
-        <servlet-class>Carrito</servlet-class>
+        <servlet-class>minitienda.Carrito</servlet-class>
     </servlet>
 
     <servlet-mapping>
