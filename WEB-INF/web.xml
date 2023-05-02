@@ -8,4 +8,14 @@
         <servlet-name>Formulario</servlet-name>
         <url-pattern>/miFormulario</url-pattern>
     </servlet-mapping>
+
+    <servlet>
+        <servlet-name>Eliminar</servlet-name>
+        <servlet-class>minitienda.Eliminar</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>Eliminar</servlet-name>
+        <url-pattern>/eliminar</url-pattern>
+    </servlet-mapping>
 </web-app>

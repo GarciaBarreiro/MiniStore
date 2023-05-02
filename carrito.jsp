@@ -1,4 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ page isELIgnored="false" %>
 <%@ page session="true" %>
@@ -12,7 +13,7 @@
     </head>
     <body> 
         <h1>Carrito de Compra</h1>
-        <table>
+        <form action="eliminar"><table>
             <tr>
                 <th>Artículo</th>
                 <th>Cantidad</th>
@@ -32,9 +33,9 @@
                         <td></td><td></td><td></td>
                         <td><input type="submit" value="Eliminar"</td>
                         <tr>
-        </table>
+        </table></form>
         <div>
-            <h2>Precio total: <c:out value="${carritoBean.precioTotal}" /></h2>
+            <h2>Precio total: <fmt:formatNumber type="number" minFractionDigits="2" maxFractionDigits="2" value="${carritoBean.precioTotal}"/></h2>
         </div>
         <a href="./index.html">Atrás</a>
     </body>

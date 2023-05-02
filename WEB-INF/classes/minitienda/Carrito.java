@@ -38,7 +38,7 @@ public class Carrito extends HttpServlet {
         String cantidadStr = request.getParameter("cantidad");
         Integer cantidad = Integer.parseInt(cantidadStr);
 
-        CarritoBean carritoBean = new CarritoBean();
+        CarritoBean carritoBean = CarritoBean.getInstance();
 
         // si se recibieron valores válidos de nombre y precio, agregar el artículo al
         // carrito
