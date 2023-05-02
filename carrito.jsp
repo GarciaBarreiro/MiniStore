@@ -25,8 +25,8 @@
             <tr>
                 <td><c:out value="${a.nombre}" /></td>
                 <td><c:out value="${a.cantidad}" /></td>
-                <td><c:out value="${a.precio}" /></td>
-                <td><input type="checkbox"></td>
+                <td><fmt:formatNumber type="number" minFractionDigits="2" maxFractionDigits="2" value="${a.precio * a.cantidad}"/></td>
+                <td><input type="checkbox" name="disk" value="${a.nombre}"></td>
             </tr>
                     </c:forEach>
                     <tr>
