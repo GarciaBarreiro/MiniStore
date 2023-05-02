@@ -18,4 +18,14 @@
         <servlet-name>Eliminar</servlet-name>
         <url-pattern>/eliminar</url-pattern>
     </servlet-mapping>
+
+    <servlet>
+        <servlet-name>Comprar</servlet-name>
+        <servlet-class>minitienda.Comprar</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>Comprar</servlet-name>
+        <url-pattern>/comprar</url-pattern>
+    </servlet-mapping>
 </web-app>

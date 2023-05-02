@@ -34,6 +34,9 @@
                         <td><input type="submit" value="Eliminar"</td>
                         <tr>
         </table></form>
+
+        <button action="comprar" type="submit">Comprar</button>
+        
         <div>
             <h2>Precio total: <fmt:formatNumber type="number" minFractionDigits="2" maxFractionDigits="2" value="${carritoBean.precioTotal}"/></h2>
         </div>
