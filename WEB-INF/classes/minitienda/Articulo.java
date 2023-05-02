@@ -23,4 +23,20 @@ public class Articulo {
     public int getCantidad() {
         return cantidad;
     }
+
+    public void updateCantidad(int cantidad) {
+        this.cantidad += cantidad;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null) return false;
+        if (this.getClass() != o.getClass()) return false;
+
+        final Articulo other = (Articulo) o;
+        if (!this.nombre.equals(other.getNombre())) return false;
+
+        return true;
+    }
 }

@@ -44,7 +44,11 @@ public class Carrito extends HttpServlet {
         // carrito
         if (nombre != null && cantidad > 0) {
             Articulo nuevoArticulo = new Articulo(nombre, precio, cantidad);
-            carrito.add(nuevoArticulo);
+            int i = carrito.indexOf(nuevoArticulo);
+            if (i != -1)
+                carrito.get(i).updateCantidad(cantidad);
+            else
+                carrito.add(nuevoArticulo);
         }
 
         // calcular el precio total del carrito
