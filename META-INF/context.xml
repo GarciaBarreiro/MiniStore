@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Context>
+    <Resource name="jdbc/CarritoBD" auth="Container"
+        driverClassName="org.postgresql.Driver"
+        url="jdbc:postgresql://localhost:5432/carritoBD"
+        username="postgres"
+        password="0000"
+        maxActive="100"
+        maxIdle="30"
+        maxWait="10000"
+        logAbandoned="true"
+        removeAbandoned="true"
+        removeAbandonedTimeout="60"
+        type="javax.sql.DataSource" />
+</Context>

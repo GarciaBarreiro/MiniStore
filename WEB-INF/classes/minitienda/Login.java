@@ -4,6 +4,7 @@ import java.io.*;
 import javax.servlet.*;
 import javax.servlet.http.*;
 import java.sql.*;
+import java.util.*;
 
 public class Login extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -15,14 +16,17 @@ public class Login extends HttpServlet {
         // Establecer la conexión con la base de datos
         Connection con = null;
         String url = "jdbc:postgresql://localhost:5432/carritoBD"; // URL de conexión de la base de datos
-        String user = "postgres"; // Nombre de usuario de la base de datos
-        String password = "0000"; // Contraseña de la base de datos
+        Properties user = new Properties();
+        user.setProperty("user", "postgres");
+        user.setProperty("password", "0000");
 
         try {
-            con = DriverManager.getConnection(url, user, password);
-        } catch (SQLException e) {
+            Class.forName("org.postgresql.Driver");
+            con = DriverManager.getConnection(url, user);
+        } catch (Exception e) {
             // Manejar errores de conexión
             e.printStackTrace();
+            System.out.println(":(");
         }
 
         // Imprimir la variable con
