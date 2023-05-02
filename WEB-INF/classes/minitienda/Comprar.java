@@ -1,17 +1,26 @@
 package minitienda;
-import java.io.IOException;
+
+import java.io.*;
 import javax.servlet.*;
 import javax.servlet.http.*;
 
 public class Comprar extends HttpServlet {
 
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+
         if (request.getSession().getAttribute("correo") != null) {
             // El usuario ha iniciado sesión, se puede proceder con la compra
-            response.sendRedirect("pagina-de-compra.jsp");
+
+            // Enviar a un servlet que procese la compra
+
+            RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/login.jsp");
+            dispatcher.forward(request, response);
         } else {
             // El usuario no ha iniciado sesión, se le pide que inicie sesión o se registre
-            response.sendRedirect("pagina-de-inicio-de-sesion-o-registro.jsp");
+            RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/login.jsp");
+            dispatcher.forward(request, response);
         }
+    
     }
 }
