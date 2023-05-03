@@ -40,7 +40,7 @@
         </form>
 
         <div>
-            <h2>Precio total: <fmt:formatNumber type="number" minFractionDigits="2" maxFractionDigits="2" value="${carritoBean.precioTotal}"/></h2>
+            <h2>Precio total: <fmt:formatNumber type="number" minFractionDigits="2" maxFractionDigits="2" value="${carritoBean.getPrecioTotal()}"/></h2>
         </div>
         <a href="./index.html">Atrás</a>
     </body>
