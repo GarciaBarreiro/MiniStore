@@ -5,7 +5,6 @@
 <%@ page session="true" %>
 <%@ page import="java.util.*" %>
 
-
 <!DOCTYPE html>
 
 <html>
@@ -48,36 +47,42 @@
 
 		<main>
 			<div class="d-flex justify-content-center" style="min-height: 100vh;">
-				<div class="container mt-5 mx-auto" style="max-width: 700px;">
-					<h1 class="text-center mb-4">Iniciar Sesión</h1>
-					<form action="login" class="border rounded p-4">
-						<div class="form-group">
-							<label for="correo">Correo Electrónico:</label>
-							<input type="email" id="correo" name="correo" required class="form-control">
-						</div>
-						<div class="form-group">
-							<label for="contraseña">Contraseña:</label>
-							<input type="password" id="contraseña" name="clave" required class="form-control">
-						</div>
-						<button type="submit" class="btn btn-primary btn-block mt-4">Iniciar Sesión</button>
-					</form>
+                <div class="container mt-5 mx-auto" style="max-width: 700px;">
+                    <h1 class="text-center mb-4">Registro</h1>
+                    <form action="registrarse" class="border rounded p-4">
+                        <div class="form-group">
+                            <label for="correo">Correo Electrónico:</label>
+                            <input type="email" id="correo" name="correo" required class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label for="clave">Contraseña:</label>
+                            <input type="password" id="clave" name="clave" required class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label for="repetir-clave">Repetir Contraseña:</label>
+                            <input type="password" id="repetir-clave" name="repetirClave" required class="form-control">
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-block mt-4" onclick="return validarClave()">Registrarse</button>
+                    </form>
+                </div>
 
-					<form class="mt-4">
-						<div class="text-right">
-								<a href="./registrarse.jsp" class="btn btn-secondary">Registrarse</a>
-					</form>
-				</div>
-			</div>
-		</main>
+                <c:if test="${not empty errorMessageRegistro}">
+                    <script>
+                        alert("Registro fallido. Prueba con otro correo electrónico.");
+                    </script>
+                </c:if>
 
-		<%-- Mostrar mensaje de alerta si hay uno --%>
-		<c:if test="${not empty errorMessageLogin}">
-			<script>
-				alert("Inicio de sesión fallido.");
-			</script>
-			
-		</c:if>
-
-	</body>
-
+                <script>
+                    function validarClave() {
+                    var clave = document.getElementById("clave").value;
+                    var repetirClave = document.getElementById("repetir-clave").value;
+                    if (clave != repetirClave) {
+                        alert("La contraseña no coincide.");
+                        return false;
+                    }
+                    return true;
+                    }
+                </script>
+            </div>
+        </main>
 </html>

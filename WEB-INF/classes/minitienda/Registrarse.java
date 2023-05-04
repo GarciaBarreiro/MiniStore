@@ -6,7 +6,7 @@ import javax.servlet.http.*;
 import java.sql.*;
 import java.util.*;
 
-public class Login extends HttpServlet {
+public class Registrarse extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
@@ -36,13 +36,13 @@ public class Login extends HttpServlet {
         //System.out.println("valor de conexion: "+con);
 
         // Ejecutar una consulta en la base de datos
-        String consulta = "SELECT correo FROM usuarios WHERE correo = ? AND clave = ?";
-        //String consulta = "INSERT INTO usuarios (correo, clave) VALUES (?, ?)";
+        String consulta_buscar = "SELECT correo FROM usuarios WHERE correo = ? AND clave = ?";
+        String consulta_insertar = "INSERT INTO usuarios (correo, clave) VALUES (?, ?)";
         PreparedStatement preparedStatement = null;
         ResultSet rs = null;
 
         try {
-            preparedStatement = con.prepareStatement(consulta);
+            preparedStatement = con.prepareStatement(consulta_buscar);
             preparedStatement.setString(1, correo); // usuario es la variable que contiene el usuario del usuario
             preparedStatement.setString(2, clave);
             rs = preparedStatement.executeQuery();
@@ -51,15 +51,23 @@ public class Login extends HttpServlet {
             if (rs.next()) {
                 // Hay al menos un registro en el ResultSet
                 if (rs.isLast()) {
-                    // El usuario existe y es unico, iniciar sesion
-                    request.getSession().setAttribute("correo", correo);
-                    // Redirigir a la pagina de la request
-                    RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/carrito.jsp");
+                    // El usuario existe y es unico, enviar error de registro
+                    RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/registrarse.jsp");
+                    request.setAttribute("errorMessageRegistro", "El usuario ya existe");
                     dispatcher.forward(request, response);
+                    
                 } 
             } else {
-                RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/login.jsp");
-                request.setAttribute("errorMessageLogin", "Nombre de usuario o contraseña incorrectos");
+                // El usuario no existe, insertar en la base de datos
+                preparedStatement = con.prepareStatement(consulta_insertar);
+                preparedStatement.setString(1, correo); // usuario es la variable que contiene el usuario del usuario
+                preparedStatement.setString(2, clave);
+                preparedStatement.executeUpdate();
+                
+                // Iniciar sesion
+                request.getSession().setAttribute("correo", correo);
+                // Redirigir a la pagina de la request
+                RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/carrito.jsp");
                 dispatcher.forward(request, response);
             }
         } catch (SQLException e) {

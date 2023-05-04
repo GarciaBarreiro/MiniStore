@@ -44,7 +44,7 @@ public class Carrito extends HttpServlet {
                 cb.getCarrito().add(nuevoArticulo);
         }
 
-        request.setAttribute("carritoBean", cb);
+        request.getSession().setAttribute("carritoBean", cb);
     
         // Obtener el objeto RequestDispatcher y enviar la solicitud al JSP
         RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/carrito.jsp");

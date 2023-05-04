@@ -38,4 +38,16 @@
         <servlet-name>Comprar</servlet-name>
         <url-pattern>/comprar</url-pattern>
     </servlet-mapping>
+
+        <servlet>
+        <servlet-name>Registrarse</servlet-name>
+        <servlet-class>minitienda.Registrarse</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>Registrarse</servlet-name>
+        <url-pattern>/registrarse</url-pattern>
+    </servlet-mapping>
+
+    
 </web-app>
