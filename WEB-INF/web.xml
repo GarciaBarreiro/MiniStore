@@ -39,7 +39,7 @@
         <url-pattern>/comprar</url-pattern>
     </servlet-mapping>
 
-        <servlet>
+    <servlet>
         <servlet-name>Registrarse</servlet-name>
         <servlet-class>minitienda.Registrarse</servlet-class>
     </servlet>
@@ -49,5 +49,14 @@
         <url-pattern>/registrarse</url-pattern>
     </servlet-mapping>
 
+    <servlet>
+        <servlet-name>Pago</servlet-name>
+        <servlet-class>minitienda.Pagar</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>Pago</servlet-name>
+        <url-pattern>/procesar_pago</url-pattern>
+    </servlet-mapping>
     
 </web-app>

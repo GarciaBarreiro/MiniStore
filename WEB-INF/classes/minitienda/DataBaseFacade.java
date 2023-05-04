@@ -35,4 +35,8 @@ public final class DataBaseFacade {
     public boolean signUpUser(String correo, String clave) {
         return dao.signUpUser(correo, clave);
     }
+
+    public boolean processPayment(String correo, float total) {
+        return dao.processPayment(correo, total);
+    }
 }

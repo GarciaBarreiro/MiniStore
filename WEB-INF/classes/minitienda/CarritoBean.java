@@ -25,4 +25,8 @@ public final class CarritoBean {
         }
         return precioTotal;
     }
+
+    public void limpiarCarrito() {
+        carrito.clear();
+    }
 }

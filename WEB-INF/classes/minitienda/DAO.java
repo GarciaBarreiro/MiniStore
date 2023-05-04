@@ -61,4 +61,29 @@ public final class DAO {
 
         return ret != 0;
     }
+
+    // returns true if payment was processed ok
+    // else false
+    public boolean processPayment(String correo, float total) {
+        int ret = 0;
+        PreparedStatement ps = null;
+
+        try {
+            ps = this.con.prepareStatement("INSERT INTO pedidos (correo, importe_final) VALUES (?, ?)");
+            ps.setString(1, correo);
+            ps.setObject(2, total, java.sql.Types.DECIMAL, 2);
+            
+            ret = ps.executeUpdate();
+        } catch (Exception e) {
+            System.out.println("Exception: " + e.getMessage());
+        } finally {
+            try {
+                ps.close();
+            } catch (Exception e) {
+                System.out.println("Exception: " + e.getMessage());
+            }
+        }
+
+        return ret != 0;
+    }
 }
