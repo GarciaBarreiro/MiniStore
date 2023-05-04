@@ -7,10 +7,6 @@ import javax.servlet.http.*;
 import javax.xml.crypto.dsig.keyinfo.RetrievalMethod;
 
 public class Carrito extends HttpServlet {
-
-    private ArrayList<Articulo> carrito = new ArrayList<>(); // lista de artículos en el carrito
-
-
     private float returnPrice(String descripcionCD) {
         // Recuperamos informacion del precio del CD
         String precioStr = null;
@@ -30,37 +26,25 @@ public class Carrito extends HttpServlet {
     }
 
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-        
         // obtener los parámetros de la solicitud
         float precio = returnPrice(request.getParameter("articuloSeleccionado"));
         String nombre = request.getParameter("articuloSeleccionado");
         String cantidadStr = request.getParameter("cantidad");
         Integer cantidad = Integer.parseInt(cantidadStr);
 
-        CarritoBean carritoBean = CarritoBean.getInstance();
+        CarritoBean cb = CarritoBean.getInstance();
 
-        // si se recibieron valores válidos de nombre y precio, agregar el artículo al
-        // carrito
+        // si se recibieron valores válidos de nombre y precio, agregar el artículo al carrito
         if (nombre != null && cantidad > 0) {
             Articulo nuevoArticulo = new Articulo(nombre, precio, cantidad);
-            int i = carrito.indexOf(nuevoArticulo);
+            int i = cb.getCarrito().indexOf(nuevoArticulo);
             if (i != -1)
-                carrito.get(i).updateCantidad(cantidad);
+                cb.getCarrito().get(i).updateCantidad(cantidad);
             else
-                carrito.add(nuevoArticulo);
+                cb.getCarrito().add(nuevoArticulo);
         }
 
-        // calcular el precio total del carrito
-        float precioTotal = 0.0f;
-        for (Articulo a : carrito) {
-            precioTotal += a.getCantidad()*a.getPrecio();
-        }
-    
-        carritoBean.setPrecioTotal(precioTotal);
-        carritoBean.setCarrito(carrito);
-
-        request.getSession().setAttribute("carritoBean", carritoBean);
+        request.getSession().setAttribute("carritoBean", cb);
     
         // Obtener el objeto RequestDispatcher y enviar la solicitud al JSP
         RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/carrito.jsp");
