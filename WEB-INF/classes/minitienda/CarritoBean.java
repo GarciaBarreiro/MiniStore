@@ -6,7 +6,7 @@ public final class CarritoBean {
     private ArrayList<Articulo> carrito = new ArrayList<Articulo>();
     private static CarritoBean instance = new CarritoBean();
 
-    private CarritoBean (){
+    private CarritoBean() {
         
     }
 
