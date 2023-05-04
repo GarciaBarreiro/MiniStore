@@ -31,4 +31,8 @@ public final class DataBaseFacade {
     public boolean userExists(String correo, String clave) {
         return dao.userExists(correo, clave);
     }
+
+    public boolean signUpUser(String correo, String clave) {
+        return dao.signUpUser(correo, clave);
+    }
 }
