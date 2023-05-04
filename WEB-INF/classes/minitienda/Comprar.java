@@ -10,11 +10,8 @@ public class Comprar extends HttpServlet {
 
 
         if (request.getSession().getAttribute("correo") != null) {
-            // El usuario ha iniciado sesión, se puede proceder con la compra
-
-            // Enviar a un servlet que procese la compra
-
-            RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/login.jsp");
+            // El usuario ha iniciado sesión, enviar a un servlet que procese la compra
+            RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/carrito.jsp");
             dispatcher.forward(request, response);
         } else {
             // El usuario no ha iniciado sesión, se le pide que inicie sesión o se registre
