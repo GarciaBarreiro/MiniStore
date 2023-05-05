@@ -6,22 +6,17 @@ import javax.servlet.http.*;
 
 public class Pagar extends HttpServlet {
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        CarritoBean cb = CarritoBean.getInstance();
+        CarritoBean cb = (CarritoBean) request.getSession().getAttribute("carritoBean");
         DataBaseFacade dbf = DataBaseFacade.getInstance();
         RequestDispatcher dispatcher;
 
-        System.out.println("hasta aqui llega");
-
-        Object correo = request.getSession().getAttribute("correo");
-
-        System.out.println(correo.toString());
-
-        if (dbf.processPayment(correo.toString(), cb.getPrecioTotal())) {
-            request.setAttribute("errorMessageLogin", "Pago aceptado :)");
+        if (dbf.processPayment(request.getSession().getAttribute("correo").toString(), cb.getPrecioTotal())) {
+            request.setAttribute("compra", cb.getCarrito().clone());
+            request.setAttribute("total", cb.getPrecioTotal());
+            dispatcher = getServletContext().getRequestDispatcher("/pago.jsp");
             cb.limpiarCarrito();
-            dispatcher = getServletContext().getRequestDispatcher("/index.html");
         } else {
-            request.setAttribute("errorMessageLogin", "Pago no aceptado :(");
+            request.setAttribute("errorMessageLogin", "Pago no aceptado :(");       // NO FUNCIONA
             dispatcher = getServletContext().getRequestDispatcher("/carrito.jsp");
         }
 
