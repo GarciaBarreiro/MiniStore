@@ -1,21 +1,21 @@
 package minitienda;
 
 import java.util.ArrayList;
+import java.io.Serializable;
 
-public final class CarritoBean {
+public class CarritoBean implements Serializable {
     private ArrayList<Articulo> carrito = new ArrayList<Articulo>();
-    private static CarritoBean instance = new CarritoBean();
 
-    private CarritoBean (){
+    public CarritoBean() {
         
-    }
-
-    public static CarritoBean getInstance() {
-        return instance;
     }
 
     public ArrayList<Articulo> getCarrito() {
         return carrito;
+    }
+
+    public void setCarrito(ArrayList<Articulo> carrito) {
+        this.carrito = carrito;
     }
 
     public float getPrecioTotal() {
@@ -24,5 +24,9 @@ public final class CarritoBean {
             precioTotal += a.getCantidad() * a.getPrecio();
         }
         return precioTotal;
+    }
+
+    public void limpiarCarrito() {
+        carrito.clear();
     }
 }

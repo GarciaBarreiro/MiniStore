@@ -80,7 +80,7 @@
 
             <c:choose>
                 <c:when test="${not empty sessionScope.correo and not empty sessionScope.carritoBean}">
-                    <form action="procesar_pago" method="post">
+                    <form action="procesar_pago">
                         <div class="form-group mb-3 mx-auto" style="max-width: 400px;">
                             <label for="tipo_tarjeta">Tipo de tarjeta:</label>
                             <select class="form-control" name="tipo_tarjeta" id="tipo_tarjeta">
@@ -89,7 +89,7 @@
                                 <option value="american_express">American Express</option>
                             </select>
                         </div>
-                        <div class="form-group mb-3 mx-auto" style="max-width: 400px;"">
+                        <div class="form-group mb-3 mx-auto" style="max-width: 400px;">
                             <label for="numero_tarjeta">Número de tarjeta:</label>
                             <input type="text" class="form-control" name="numero_tarjeta" id="numero_tarjeta">
                         </div>
@@ -108,7 +108,7 @@
             </c:choose>
     
             <div class="text-center mt-3">
-                <h2>Precio total: <fmt:formatNumber type="number" minFractionDigits="2" maxFractionDigits="2" value="${carritoBean.getPrecioTotal()}"/></h2>
+                <h2>Precio total: <fmt:formatNumber type="number" minFractionDigits="2" maxFractionDigits="2" value="${carritoBean.precioTotal}"/></h2>
             </div>
             <div class="text-right mt-3">
                 <a href="./index.html" class="btn btn-secondary">Atrás</a>
