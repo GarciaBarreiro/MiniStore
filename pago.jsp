@@ -46,7 +46,7 @@
 
         <main>
             <div class="container">
-                <h1 class="text-center">Pedido</h1>
+                <h1 class="text-center text-success">Pedido Confirmado</h1>
                 <table class="table">
                     <thead class="thead-dark">
                         <tr>

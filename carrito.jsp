@@ -74,12 +74,14 @@
                     </tbody>
                 </table>
                 <div class="text-center">
-                    <input type="submit" class="btn btn-sm btn-danger mt-3" value="Eliminar">
+                    <c:if test="${not empty sessionScope.carritoBean.carrito}">
+                        <input type="submit" class="btn btn-sm btn-danger mt-3" value="Eliminar">
+                    </c:if>
                 </div>
             </form>
 
             <c:choose>
-                <c:when test="${not empty sessionScope.correo and not empty sessionScope.carritoBean}">
+                <c:when test="${not empty sessionScope.correo && not empty sessionScope.carritoBean.carrito}">
                     <form action="procesar_pago">
                         <div class="form-group mb-3 mx-auto" style="max-width: 400px;">
                             <label for="tipo_tarjeta">Tipo de tarjeta:</label>
@@ -91,7 +93,7 @@
                         </div>
                         <div class="form-group mb-3 mx-auto" style="max-width: 400px;">
                             <label for="numero_tarjeta">Número de tarjeta:</label>
-                            <input type="text" class="form-control" name="numero_tarjeta" id="numero_tarjeta">
+                            <input type="text" class="form-control" name="numero_tarjeta" id="numero_tarjeta" pattern="[0-9\s]*" onkeyup="separarNumeroTarjeta()">
                         </div>
                         <div class="text-center mb-3">
                             <button type="submit" class="btn btn-primary">Procesar pago</button>
@@ -99,11 +101,13 @@
                     </form>
                 </c:when>
                 <c:otherwise>
-                    <form action="comprar">
-                        <div class="text-center mt-3">
-                            <button type="submit" class="btn btn-primary">Comprar</button>
-                        </div>
-                    </form>
+                    <c:if test="${not empty sessionScope.carritoBean.carrito}">
+                        <form action="comprar">
+                            <div class="text-center mt-3">
+                                <button type="submit" class="btn btn-primary">Comprar</button>
+                            </div>
+                        </form>
+                    </c:if>
                 </c:otherwise>
             </c:choose>
     
@@ -115,5 +119,16 @@
             </div>
         </div>
     </main>
+
+       <!-- Separa el numero de tarjeta en grupos de 4 -->
+       <script>
+        function separarNumeroTarjeta() {
+        var numeroTarjeta = document.getElementById('numero_tarjeta').value;
+        var numeroTarjetaFormateado = numeroTarjeta.replace(/\s+/g, '').replace(/[^0-9]/gi, '').replace(/(.{4})/g, '$1 ');
+        document.getElementById('numero_tarjeta').value = numeroTarjetaFormateado;
+        }
+        </script>
+
+
     </body>
 </html>
