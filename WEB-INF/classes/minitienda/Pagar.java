@@ -16,7 +16,7 @@ public class Pagar extends HttpServlet {
             dispatcher = getServletContext().getRequestDispatcher("/pago.jsp");
             cb.limpiarCarrito();
         } else {
-            request.setAttribute("errorMessageLogin", "Pago no aceptado :(");       // NO FUNCIONA
+            request.setAttribute("errorMessagePago", "Pago no completado.");
             dispatcher = getServletContext().getRequestDispatcher("/carrito.jsp");
         }
 

@@ -79,5 +79,13 @@
                 </div>
             </div>
         </main>
+
+		<%-- Mostrar mensaje de alerta si hay uno --%>
+		<c:if test="${not empty errorMessagePago}">
+			<script>
+				alert("Pago no completado.");
+			</script>
+			
+		</c:if>
     </body>
 </html>
